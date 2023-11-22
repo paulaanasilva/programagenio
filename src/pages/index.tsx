@@ -31,7 +31,7 @@ export default function Home() {
       if (data.length === 0) {
         return;
       }
-      setVagas(data);
+      setVagas(data.sort((a, b) => a.id - b.id));
       setVagasPreferenciais(data.filter((vaga) => vaga.pref));
       setVagasDisponiveis(data.filter((vaga) => !vaga.filled));
     });
@@ -46,16 +46,15 @@ export default function Home() {
             alt="Logo do Estacionamento"
             width={300}
             height={100}
-            layout="fixed"
           />
         </div>
       </div>
       <div className="z-4 w-full justify-center font-mono text-sm ">
         <div className="font-bold text-white text-3xl text-center pt-2">
-          Estacionamento Teste A
+          Estacionamento A
         </div>
         <div className="text-white text-3xl text-center p-2">
-          Vagas Preferenciais: {vagasPreferenciais.length}
+          Vagas Preferênciais: {vagasPreferenciais.length}
         </div>
         <div className="text-white text-3xl text-center p-2">
           Vagas Disponíveis: {vagasDisponiveis.length}
@@ -69,14 +68,16 @@ export default function Home() {
                 style={{ width: "calc(25% - 8px)" }}
               >
                 <div
-                  className={`rounded-full w-4 h-4 ${
+                  className={`flex items-center justify-center rounded-full p-6 w-4 h-4 ${
                     vaga.filled
                       ? "bg-red-700"
                       : vaga.pref
                       ? "bg-blue-700"
                       : "bg-green-700"
                   }`}
-                ></div>
+                >
+                  <strong className="text-white text-3xl">{vaga.id}</strong>
+                </div>
               </div>
             ))}
           </div>
