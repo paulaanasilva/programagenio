@@ -27,14 +27,20 @@ export default function Home() {
   const [vagasDisponiveis, setVagasDisponiveis] = useState<Vaga[]>([]);
 
   useEffect(() => {
-    getVagas().then((data) => {
+    const fetchData = async () => {
+      const data = await getVagas();
       if (data.length === 0) {
         return;
       }
       setVagas(data.sort((a, b) => a.id - b.id));
       setVagasPreferenciais(data.filter((vaga) => vaga.pref));
       setVagasDisponiveis(data.filter((vaga) => !vaga.filled));
-    });
+    };
+
+    fetchData();
+    const interval = setInterval(fetchData, 5000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
