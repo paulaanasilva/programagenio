@@ -18,10 +18,10 @@ export default async function handle(
       res.json(sensor);
       break;
     case "PUT":
-      const { filled } = req.body;
+      const { filled, pref } = req.body;
       const updatedSensor: Sensores = await prisma.sensores.update({
         where: { id: sensorId },
-        data: { filled },
+        data: { filled, pref },
       });
       res.json(updatedSensor);
       break;
