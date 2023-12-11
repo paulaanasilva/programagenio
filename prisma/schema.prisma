@@ -14,3 +14,19 @@ model Sensores {
   filled Boolean
   pref   Boolean
 }
+
+model User {
+  //uuid  
+  id String  @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  role Role @default(ALUNO)
+}
+
+// enum Role
+enum Role {
+  PROFESSOR
+  ALUNO
+  INSTITUICAO   
+}
