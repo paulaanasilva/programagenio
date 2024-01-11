@@ -25,3 +25,18 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.content {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+div.border{
+  border-style: solid;
+}
+
+.imgCurso {
+    height: 100px;
+    object-fit: cover;
+    width: 300px;
+}

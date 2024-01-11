@@ -1,33 +1,29 @@
 import React from "react";
-import { Card, Container, Menu } from "semantic-ui-react";
-import Router from "next/router";
+import Head from 'next/head'
+import Image from 'next/image'
+
+
 
 export default function MeusCursos() {
   return (
-    <Container>
-      <Menu>
-        <Menu.Item name="Dashboard" onClick={() => Router.push("/dashboard")}>
-          <h1>Dashboard</h1>
-        </Menu.Item>
-        <Menu.Item
-          name="Meus Cursos"
-          onClick={() => Router.push("/meus-cursos")}
-        >
-          <h1>Meus Cursos</h1>
-        </Menu.Item>
-        <Menu.Item>
-          <h1>Meus Cursos</h1>
-        </Menu.Item>
-      </Menu>
-
-      <div className="container mx-auto px-4 sm:px-8 max-w-3xl">
-        <Card>
-          <Card.Content>
-            <Card.Header>Curso de Protugol</Card.Header>
-            <Card.Description>O curso ............... </Card.Description>
-          </Card.Content>
-        </Card>
+    <>
+      <Head>
+        <title>Programa Genio | Meus Cursos</title>
+      </Head>
+      <p></p>
+      <h2 className="my-4">Meus Cursos</h2>
+      <div className="border-collapse border border-slate-400 rounded-lg p-3">
+        <div className="flex">
+          <Image className="imgCurso rounded-lg m-1" src='/logoPortugol.png' width={300} height={200} alt="Imagem de identificação do curso"/>
+          <div className="m-1">
+            <h3>Programação para iniciantes usando Portugol Studio</h3>
+            <span>42% Completo</span>
+            <br />
+            <span>Aprenda lógica de programação usando ferramentas e abordagens criadas para iniciantes</span>
+          </div>
+        </div>
       </div>
-    </Container>
+    </>
   );
 }
+

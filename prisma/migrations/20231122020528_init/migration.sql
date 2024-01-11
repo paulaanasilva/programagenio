@@ -1,3 +1,4 @@
+/*
 -- CreateTable
 CREATE TABLE "Sensores" (
     "id" SERIAL NOT NULL,
@@ -6,3 +7,4 @@ CREATE TABLE "Sensores" (
 
     CONSTRAINT "Sensores_pkey" PRIMARY KEY ("id")
 );
+*/

@@ -9,24 +9,81 @@ datasource db {
 
 }
 
-model Sensores {
-  id     Int     @id @default(autoincrement())
-  filled Boolean
-  pref   Boolean
+model curso {
+  id_curso String @id @default(uuid())
+  nome_curso String
+  descricao String
+  cursos_alunos cursos_alunos[]
+  disciplina_curso disciplina_curso[]
 }
 
-model User {
-  //uuid  
-  id String  @id @default(uuid())
-  name String
-  email String @unique
-  password String
-  role Role @default(ALUNO)
+model aluno {
+	id_aluno String @id @default(uuid())
+	nome_aluno String
+	matricula Int @unique
+	cpf String @unique
+	telefone String?
+  cursos_alunos cursos_alunos[]
+  disciplina_aluno disciplina_aluno[]
 }
 
-// enum Role
-enum Role {
-  PROFESSOR
-  ALUNO
-  INSTITUICAO   
+model cursos_alunos {
+	aluno aluno? @relation(fields: [id_aluno], references: [id_aluno])
+  id_aluno String
+  curso curso? @relation(fields: [id_curso], references: [id_curso])
+  id_curso String
+
+  @@id([id_aluno, id_curso])
+}
+
+model historico {
+  id_historico String @id @default(uuid())
+  notas Int?
+  media Float?
+  disciplina_historico disciplina_historico[]
+}
+
+model disciplina {
+	id_disciplina String @id @default(uuid())
+	descricao String
+	carga_horaria Float
+	nome_disciplina String
+	cod_disciplina Int @unique
+  disciplina_dependente disciplina_dependente[]
+  disciplina_curso disciplina_curso[]
+  disciplina_historico disciplina_historico[]
+  disciplina_aluno disciplina_aluno[]
+}
+
+model disciplina_dependente {
+	id_disciplina_dependente String @id @default(uuid())
+	id_disciplina String
+  disciplina disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
+}
+
+model disciplina_curso {
+	disciplina disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
+  id_disciplina String
+  curso curso? @relation(fields: [id_curso], references: [id_curso])
+  id_curso String
+
+  @@id([id_disciplina, id_curso])
+}
+
+model disciplina_historico {
+	disciplina disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
+  id_disciplina String
+  historico historico? @relation(fields: [id_historico], references: [id_historico])
+  id_historico String
+
+  @@id([id_disciplina, id_historico])
+}
+
+model disciplina_aluno {
+	disciplina disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
+  id_disciplina String
+	aluno aluno? @relation(fields: [id_aluno], references: [id_aluno])
+  id_aluno String
+
+  @@id([id_disciplina, id_aluno])
 }
