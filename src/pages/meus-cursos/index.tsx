@@ -1,10 +1,24 @@
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 import Head from 'next/head'
-import Image from 'next/image'
-
-
+import axios from "axios";
+import Card from "@/components/Card";
+import { curso } from "@prisma/client";
+import AdicionarCurso from "@/components/AdicionarCurso";
 
 export default function MeusCursos() {
+
+  const [cursos, setCursos] = useState<curso[]>([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/cursos').then(response => {
+      setCursos(response.data);
+    }).catch(error => {
+      console.error(error);
+    });
+  }
+  , []);
+
+
   return (
     <>
       <Head>
@@ -12,16 +26,17 @@ export default function MeusCursos() {
       </Head>
       <p></p>
       <h2 className="my-4">Meus Cursos</h2>
-      <div className="border-collapse border border-slate-400 rounded-lg p-3">
-        <div className="flex">
-          <Image className="imgCurso rounded-lg m-1" src='/logoPortugol.png' width={300} height={200} alt="Imagem de identificação do curso"/>
-          <div className="m-1">
-            <h3>Programação para iniciantes usando Portugol Studio</h3>
-            <span>42% Completo</span>
-            <br />
-            <span>Aprenda lógica de programação usando ferramentas e abordagens criadas para iniciantes</span>
-          </div>
-        </div>
+      <div>
+        {cursos.map((curso) => (
+          <Card
+            key={curso.id_curso}
+            img={"/logoPortugol.png"}
+            title={curso.nome_curso}
+            description={curso.descricao}
+            progress={"42% Completo"}
+          />
+        ))}
+        <AdicionarCurso />
       </div>
     </>
   );
