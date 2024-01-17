@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const AdicionarCurso: React.FC = () => {
   const [nomeCurso, setNomeCurso] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [imagem, setImagem] = useState<File | null>(null);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -10,15 +11,18 @@ const AdicionarCurso: React.FC = () => {
     const novoCurso = {
       nome_curso: nomeCurso,
       descricao: descricao,
+      imagem: imagem,
     };
 
     try {
+      const formData = new FormData();
+      formData.append("nome_curso", nomeCurso);
+      formData.append("descricao", descricao);
+      formData.append("imagem", imagem as File);
+
       const response = await fetch("/api/cursos", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(novoCurso),
+        body: formData,
       });
 
       if (response.ok) {
@@ -48,6 +52,14 @@ const AdicionarCurso: React.FC = () => {
           id="descricao"
           value={descricao}
           onChange={(event) => setDescricao(event.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="imagem">Imagem:</label>
+        <input
+          type="file"
+          id="imagem"
+          onChange={(event) => setImagem(event.target.files?.[0] || null)}
         />
       </div>
       <button type="submit">Adicionar Curso</button>

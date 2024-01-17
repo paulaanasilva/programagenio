@@ -12,6 +12,7 @@ model curso {
   id_curso         String             @id @default(uuid())
   nome_curso       String
   descricao        String
+  imagem           String
   cursos_alunos    cursos_alunos[]
   disciplina_curso disciplina_curso[]
 }
@@ -27,10 +28,10 @@ model aluno {
 }
 
 model cursos_alunos {
-  aluno    aluno? @relation(fields: [id_aluno], references: [id_aluno])
   id_aluno String @default(uuid())
-  curso    curso? @relation(fields: [id_curso], references: [id_curso])
   id_curso String @default(uuid())
+  aluno    aluno  @relation(fields: [id_aluno], references: [id_aluno])
+  curso    curso  @relation(fields: [id_curso], references: [id_curso])
 
   @@id([id_aluno, id_curso])
 }
@@ -48,41 +49,41 @@ model disciplina {
   carga_horaria         Float
   nome_disciplina       String
   cod_disciplina        Int                     @unique
-  disciplina_dependente disciplina_dependente[]
-  disciplina_curso      disciplina_curso[]
-  disciplina_historico  disciplina_historico[]
   disciplina_aluno      disciplina_aluno[]
+  disciplina_curso      disciplina_curso[]
+  disciplina_dependente disciplina_dependente[]
+  disciplina_historico  disciplina_historico[]
 }
 
 model disciplina_dependente {
-  id_disciplina_dependente String      @id @default(uuid())
-  id_disciplina            String      @default(uuid())
-  disciplina               disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
+  id_disciplina_dependente String     @id @default(uuid())
+  id_disciplina            String     @default(uuid())
+  disciplina               disciplina @relation(fields: [id_disciplina], references: [id_disciplina])
 }
 
 model disciplina_curso {
-  disciplina    disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
-  id_disciplina String      @default(uuid())
-  curso         curso?      @relation(fields: [id_curso], references: [id_curso])
-  id_curso      String      @default(uuid())
+  id_disciplina String     @default(uuid())
+  id_curso      String     @default(uuid())
+  curso         curso      @relation(fields: [id_curso], references: [id_curso])
+  disciplina    disciplina @relation(fields: [id_disciplina], references: [id_disciplina])
 
   @@id([id_disciplina, id_curso])
 }
 
 model disciplina_historico {
-  disciplina    disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
-  id_disciplina String      @default(uuid())
-  historico     historico?  @relation(fields: [id_historico], references: [id_historico])
-  id_historico  String      @default(uuid())
+  id_disciplina String     @default(uuid())
+  id_historico  String     @default(uuid())
+  disciplina    disciplina @relation(fields: [id_disciplina], references: [id_disciplina])
+  historico     historico  @relation(fields: [id_historico], references: [id_historico])
 
   @@id([id_disciplina, id_historico])
 }
 
 model disciplina_aluno {
-  disciplina    disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
-  id_disciplina String      @default(uuid())
-  aluno         aluno?      @relation(fields: [id_aluno], references: [id_aluno])
-  id_aluno      String      @default(uuid())
+  id_disciplina String     @default(uuid())
+  id_aluno      String     @default(uuid())
+  aluno         aluno      @relation(fields: [id_aluno], references: [id_aluno])
+  disciplina    disciplina @relation(fields: [id_disciplina], references: [id_disciplina])
 
   @@id([id_disciplina, id_aluno])
 }

@@ -3,6 +3,7 @@ CREATE TABLE "curso" (
     "id_curso" TEXT NOT NULL,
     "nome_curso" TEXT NOT NULL,
     "descricao" TEXT NOT NULL,
+    "imagem" TEXT NOT NULL,
 
     CONSTRAINT "curso_pkey" PRIMARY KEY ("id_curso")
 );
@@ -97,10 +98,10 @@ ALTER TABLE "cursos_alunos" ADD CONSTRAINT "cursos_alunos_id_curso_fkey" FOREIGN
 ALTER TABLE "disciplina_dependente" ADD CONSTRAINT "disciplina_dependente_id_disciplina_fkey" FOREIGN KEY ("id_disciplina") REFERENCES "disciplina"("id_disciplina") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "disciplina_curso" ADD CONSTRAINT "disciplina_curso_id_disciplina_fkey" FOREIGN KEY ("id_disciplina") REFERENCES "disciplina"("id_disciplina") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "disciplina_curso" ADD CONSTRAINT "disciplina_curso_id_curso_fkey" FOREIGN KEY ("id_curso") REFERENCES "curso"("id_curso") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "disciplina_curso" ADD CONSTRAINT "disciplina_curso_id_curso_fkey" FOREIGN KEY ("id_curso") REFERENCES "curso"("id_curso") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "disciplina_curso" ADD CONSTRAINT "disciplina_curso_id_disciplina_fkey" FOREIGN KEY ("id_disciplina") REFERENCES "disciplina"("id_disciplina") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "disciplina_historico" ADD CONSTRAINT "disciplina_historico_id_disciplina_fkey" FOREIGN KEY ("id_disciplina") REFERENCES "disciplina"("id_disciplina") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -109,7 +110,7 @@ ALTER TABLE "disciplina_historico" ADD CONSTRAINT "disciplina_historico_id_disci
 ALTER TABLE "disciplina_historico" ADD CONSTRAINT "disciplina_historico_id_historico_fkey" FOREIGN KEY ("id_historico") REFERENCES "historico"("id_historico") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "disciplina_aluno" ADD CONSTRAINT "disciplina_aluno_id_disciplina_fkey" FOREIGN KEY ("id_disciplina") REFERENCES "disciplina"("id_disciplina") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "disciplina_aluno" ADD CONSTRAINT "disciplina_aluno_id_aluno_fkey" FOREIGN KEY ("id_aluno") REFERENCES "aluno"("id_aluno") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "disciplina_aluno" ADD CONSTRAINT "disciplina_aluno_id_aluno_fkey" FOREIGN KEY ("id_aluno") REFERENCES "aluno"("id_aluno") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "disciplina_aluno" ADD CONSTRAINT "disciplina_aluno_id_disciplina_fkey" FOREIGN KEY ("id_disciplina") REFERENCES "disciplina"("id_disciplina") ON DELETE RESTRICT ON UPDATE CASCADE;

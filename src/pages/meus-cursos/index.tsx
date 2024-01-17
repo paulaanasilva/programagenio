@@ -30,10 +30,9 @@ export default function MeusCursos() {
         {cursos.map((curso) => (
           <Card
             key={curso.id_curso}
-            img={"/logoPortugol.png"}
+            img={curso.imagem}
             title={curso.nome_curso}
             description={curso.descricao}
-            progress={"42% Completo"}
           />
         ))}
         <AdicionarCurso />
