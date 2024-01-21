@@ -25,7 +25,7 @@ export default function MeusCursos() {
         <title>Programa Genio | Meus Cursos</title>
       </Head>
       <p></p>
-      <h2 className="my-4">Meus Cursos</h2>
+      <h3 className="my-4">Meus Cursos</h3>
       <div>
         {cursos.map((curso) => (
           <Card
@@ -33,7 +33,6 @@ export default function MeusCursos() {
             img={"/logoPortugol.png"}
             title={curso.nome_curso}
             description={curso.descricao}
-            progress={"42% Completo"}
           />
         ))}
         <AdicionarCurso />

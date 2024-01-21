@@ -1,4 +1,5 @@
 import "semantic-ui-css/semantic.min.css";
+import { useRouter } from 'next/router';
 import Header from "./Header";
 
 interface LayoutProps {
@@ -6,9 +7,12 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const router = useRouter();
+
+  
   return (
     <div>
-      <Header />
+      {router.pathname !== '/login' && <Header />}
       <div className="px-10">{children}</div>
     </div>
   );
