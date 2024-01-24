@@ -52,3 +52,10 @@ div.border{
   height: 20%;
   
 }
+
+.box {
+  display: flex;
+}
+.push {
+  margin-left: auto;
+}
