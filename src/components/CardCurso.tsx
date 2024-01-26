@@ -24,12 +24,13 @@ import Image from "next/image";
 import DropdownCurso from "./DropdownCurso";
 
 interface CardProps {
+  id: string;
   img: string;
   title: string;
   description: string;
 }
 
-function Card(props: CardProps) {
+function CardCurso(props: CardProps) {
   return (
     <>
       <div className="border-collapse border border-slate-400 rounded-lg my-3 p-3 box">
@@ -39,7 +40,8 @@ function Card(props: CardProps) {
             src={props.img}
             width={300}
             height={200}
-            alt="Imagem de identificação do curso" />
+            alt="Imagem de identificação do curso"
+          />
         </div>
         <div>
           <div className="m-1">
@@ -47,14 +49,13 @@ function Card(props: CardProps) {
             <span>{props.description}</span>
           </div>
         </div>
-        <div className="push">
-        </div>
+        <div className="push"></div>
         <div>
-          <DropdownCurso />
+          <DropdownCurso idCurso={props.id} />
         </div>
       </div>
     </>
   );
 }
 
-export default Card;
+export default CardCurso;
