@@ -47,6 +47,15 @@ CREATE TABLE "disciplina" (
 );
 
 -- CreateTable
+CREATE TABLE "conteudo_disciplina" (
+    "id_conteudo_disciplina" TEXT NOT NULL,
+    "id_disciplina" TEXT NOT NULL,
+    "conteudo" TEXT NOT NULL,
+
+    CONSTRAINT "conteudo_disciplina_pkey" PRIMARY KEY ("id_conteudo_disciplina")
+);
+
+-- CreateTable
 CREATE TABLE "disciplina_dependente" (
     "id_disciplina_dependente" TEXT NOT NULL,
     "id_disciplina" TEXT NOT NULL,
@@ -92,6 +101,9 @@ ALTER TABLE "cursos_alunos" ADD CONSTRAINT "cursos_alunos_id_aluno_fkey" FOREIGN
 
 -- AddForeignKey
 ALTER TABLE "cursos_alunos" ADD CONSTRAINT "cursos_alunos_id_curso_fkey" FOREIGN KEY ("id_curso") REFERENCES "curso"("id_curso") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "conteudo_disciplina" ADD CONSTRAINT "conteudo_disciplina_id_disciplina_fkey" FOREIGN KEY ("id_disciplina") REFERENCES "disciplina"("id_disciplina") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "disciplina_dependente" ADD CONSTRAINT "disciplina_dependente_id_disciplina_fkey" FOREIGN KEY ("id_disciplina") REFERENCES "disciplina"("id_disciplina") ON DELETE RESTRICT ON UPDATE CASCADE;

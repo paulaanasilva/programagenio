@@ -35,11 +35,10 @@ function CardCurso(props: CardProps) {
     <>
       <div className="border-collapse border border-slate-400 rounded-lg my-3 p-3 box">
         <div>
-          <Image
-            className="imgCurso rounded-lg m-1"
+          <Image className="imgCurso rounded-lg m-1"
             src={props.img}
             width={300}
-            height={200}
+            height={100}
             alt="Imagem de identificação do curso"
           />
         </div>

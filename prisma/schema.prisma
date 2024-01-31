@@ -52,6 +52,14 @@ model disciplina {
   disciplina_curso      disciplina_curso[]
   disciplina_historico  disciplina_historico[]
   disciplina_aluno      disciplina_aluno[]
+  conteudo_disciplina   conteudo_disciplina[]
+}
+
+model conteudo_disciplina {
+  id_conteudo_disciplina String      @id @default(uuid())
+  id_disciplina          String      @default(uuid())
+  conteudo               String
+  disciplina             disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
 }
 
 model disciplina_dependente {

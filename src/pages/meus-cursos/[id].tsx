@@ -42,10 +42,11 @@ export default function Details() {
             {disciplinas &&
               disciplinas.map((disciplina) => (
                 <li key={disciplina.id_disciplina}>
-                  {disciplina.nome_disciplina}- {disciplina.descricao}
+                  {disciplina.nome_disciplina}- {disciplina.descricao} - {disciplina.carga_horaria}
                 </li>
               ))}
           </ul>
+          {curso.descricao}
         </div>
       )}
     </>
