@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 
 export default function Header() {
+  const router = useRouter();
   const [activeItem, setActiveItem] = React.useState("Dashboard");
 
   const headerOptions = [
@@ -20,8 +21,15 @@ export default function Header() {
     },
   ];
 
+  React.useEffect(() => {
+    const currentOption = headerOptions.find((option) => router.pathname === option.path);
+    if (currentOption) {
+      setActiveItem(currentOption.name);
+    }
+  }, [router.pathname, headerOptions]);
+
   const handleExit = () => {
-    Router.push("/");
+    router.push("/");
   };
 
   return (
@@ -36,8 +44,8 @@ export default function Header() {
             key={option.name}
             name={option.name}
             active={activeItem === option.name}
-            onClick={(e) => {
-              Router.push(option.path);
+            onClick={() => {
+              router.push(option.path);
               setActiveItem(option.name);
             }}
           />
