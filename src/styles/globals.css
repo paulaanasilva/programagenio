@@ -51,7 +51,11 @@ div.border{
 .logologin {
   width: 20%;
   height: 20%;
-  
+}
+
+.logoheader {
+  width: 200px;
+  height: 50px;
 }
 
 .box {
@@ -61,3 +65,4 @@ div.border{
 .push {
   margin-left: auto;
 }
+
