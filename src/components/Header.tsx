@@ -36,7 +36,7 @@ export default function Header() {
     <div>
       <Menu pointing secondary>
         <Menu.Item>
-          <img alt="logo" src="/sologo.jpeg" />
+            <img alt="logo" src="/logoprincipal.jpeg" />
         </Menu.Item>
 
         {headerOptions.map((option) => (

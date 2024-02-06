@@ -37,7 +37,7 @@ const LoginPage: React.FC = () => {
                                 </div>
                             )}
                             <div className="ui fluid card items-center">
-                                <img className="logologin m-2" src="sologo.jpeg" />
+                                <img className="logologin m-2" src="logoprincipal.jpeg" />
                                 <div className="content">
                                     <form className="ui form" method="POST" onSubmit={handleSubmit}>
                                         <div className="field">
@@ -49,7 +49,7 @@ const LoginPage: React.FC = () => {
                                             <input type="password" name="pass" onChange={e => setPass(e.target.value)} />
                                         </div>
                                         <div>
-                                            <button className="ui right floated violet button" type="submit">
+                                            <button className="ui right floated purple button" type="submit">
                                                 Entrar
                                             </button>
                                         </div>
