@@ -1,8 +1,11 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 
-const Curso = () => {
+interface CardProps {
+    conteudo: React.ReactNode;
+}
+
+function SideNavConteudo(props: CardProps) {
     const [showSidenav, setShowSidenav] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const handleCheckboxChange = () => {
@@ -61,13 +64,11 @@ const Curso = () => {
                     </nav>
                 )}
                 <div className={showSidenav ? 'ml-72' : ''}>
-                    aqui vou colocar as informações do curso
+                    {props.conteudo}
                 </div>
             </div>
         </>
-    );
+    )
 };
 
-export default Curso
-
-
+export default SideNavConteudo;

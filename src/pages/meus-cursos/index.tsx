@@ -21,10 +21,6 @@ export default function MeusCursos() {
       });
   }, []);
 
-  // const handleMostraCurso = (id: string) => {
-  //   void router.push(`/meus-cursos/${id}`);
-  // };
-
   return (
     <>
       <Head>
