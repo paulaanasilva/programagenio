@@ -11,10 +11,7 @@ function pageTeste() {
         <>
             <div className="flex min-h-screen flex-row bg-gray-100 text-gray-800">
                 <aside className="sidebar min-w-custom -translate-x-full transform bg-white p-4 transition-transform duration-150 ease-in md:translate-x-0 md:shadow-md">
-                    <div className="my-4 w-full border-b-4 border-indigo-100">
-                        <span className="font-mono text-xl font-bold tracking-widest">
-                            <span className="text-indigo-600">HELLO</span> DEV
-                        </span>
+                    <div>
                         <label className="flex items-center mt-4">
                             <input
                                 type="checkbox"
@@ -25,7 +22,6 @@ function pageTeste() {
                             <span className="ml-2 text-gray-700">I agree to the terms and conditions</span>
                         </label>
                     </div>
-                    <div className="my-4"></div>
                 </aside>
                 <main className="main -ml-48 flex flex-grow flex-col p-4 transition-all duration-150 ease-in md:ml-0">
                     <div className="flex h-full items-center justify-center bg-white text-center text-5xl font-bold shadow-md">
