@@ -18,6 +18,9 @@ const config: Config = {
       fontFamily: {
         sans: ["Roboto", "sans-serif"],
       },
+      minWidth: {
+        'custom': '500px',
+      }
     },
   },
   plugins: [],

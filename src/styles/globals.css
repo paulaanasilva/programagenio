@@ -51,7 +51,11 @@ div.border{
 .logologin {
   width: 20%;
   height: 20%;
-  
+}
+
+.logoheader {
+  width: 200px;
+  height: 50px;
 }
 
 .box {
@@ -60,4 +64,14 @@ div.border{
 }
 .push {
   margin-left: auto;
+}
+
+.azul {
+  color: #8DB9F4;
+  ;
+}
+
+.roxo {
+  color: #9F2697;
+  ;
 }

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { curso, disciplina } from "@prisma/client";
+import SideNavConteudo from "@/components/sideNavConteudo";
 
 export default function Details() {
   const router = useRouter();
@@ -33,22 +34,32 @@ export default function Details() {
     }
   }, [id]);
 
+  function conteudoDisciplina() {
+    return (
+      <div>
+        {curso && (
+          <div>
+            <h1>{curso.nome_curso}</h1>
+            <ul>
+              {disciplinas &&
+                disciplinas.map((disciplina) => (
+                  <li key={disciplina.id_disciplina}>
+                    {disciplina.nome_disciplina}- {disciplina.descricao} - {disciplina.carga_horaria}
+                  </li>
+                ))}
+            </ul>
+            {curso.descricao}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <>
-      {curso && (
-        <div>
-          <h1>{curso.nome_curso}</h1>
-          <ul>
-            {disciplinas &&
-              disciplinas.map((disciplina) => (
-                <li key={disciplina.id_disciplina}>
-                  {disciplina.nome_disciplina}- {disciplina.descricao} - {disciplina.carga_horaria}
-                </li>
-              ))}
-          </ul>
-          {curso.descricao}
-        </div>
-      )}
+      <SideNavConteudo
+        conteudo={conteudoDisciplina()}
+      />
     </>
   );
 }
