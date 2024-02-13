@@ -21,7 +21,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       include: {
         disciplina_curso: {
           include: {
-            disciplina: true,
+            disciplina: {
+              include: {
+                conteudo_disciplina: true,
+              },
+            },
           },
         },
       },

@@ -13,7 +13,7 @@ const AdicionarCurso: React.FC = () => {
     };
 
     try {
-      const response = await fetch("/api/cursos", {
+      const response = await fetch("/api/curso", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
