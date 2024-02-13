@@ -34,12 +34,12 @@ export default function Details() {
     }
   }, [id]);
 
-  function conteudoDisciplina() {
+  function conteudo() {
     return (
       <div>
         {curso && (
           <div>
-            <h1>{curso.nome_curso}</h1>
+            <h1 className="tituloCurso p-3">{curso.nome_curso}</h1>
             <ul>
               {disciplinas &&
                 disciplinas.map((disciplina) => (
@@ -48,7 +48,6 @@ export default function Details() {
                   </li>
                 ))}
             </ul>
-            {curso.descricao}
           </div>
         )}
       </div>
@@ -58,7 +57,7 @@ export default function Details() {
   return (
     <>
       <SideNavConteudo
-        conteudo={conteudoDisciplina()}
+        conteudo={conteudo()}
       />
     </>
   );

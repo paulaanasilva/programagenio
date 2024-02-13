@@ -17,7 +17,7 @@ function SideNavConteudo(props: CardProps) {
             <div className="relative">
                 <button
                     onClick={() => setShowSidenav(true)}
-                    className="fixed top-20 left-1 bg-slate-300 text-black rounded-full p-4"
+                    className="fixed top-20 left-1 bg-blue-200 text-black rounded-full p-4"
                     style={{ display: !showSidenav ? 'block' : 'none' }}
                 >
                     <svg
@@ -33,7 +33,7 @@ function SideNavConteudo(props: CardProps) {
                 </button>
                 {showSidenav && (
                     <nav
-                        className="fixed z-10 h-screen bg-slate-300 w-72 text-black p-2"
+                        className="fixed z-10 h-screen bg-blue-200 w-72 text-black p-2"
                         style={{
                             transform: showSidenav ? 'translateX(0)' : '-translateX(72px)',
                             transition: 'transform 0.3s ease-in-out',

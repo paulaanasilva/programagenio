@@ -75,3 +75,9 @@ div.border{
   color: #9F2697;
   ;
 }
+
+.tituloCurso {
+  font-weight: bold;
+  color: #8DB9F4;
+  text-align: center;
+}
