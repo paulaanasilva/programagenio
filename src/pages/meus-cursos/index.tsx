@@ -3,7 +3,6 @@ import Head from "next/head";
 import axios from "axios";
 import CardCurso from "@/components/CardCurso";
 import { curso } from "@prisma/client";
-import AdicionarCurso from "@/components/AdicionarCurso";
 import router from "next/router";
 import Link from "next/link";
 
@@ -24,7 +23,7 @@ export default function MeusCursos() {
   return (
     <>
       <Head>
-        <title>Programa Genio | Meus Cursos</title>
+        <title>Programa Genio | Dashboard | Cadastrar Cursos</title>
       </Head>
       <p></p>
       <h3 className="my-4">Meus Cursos</h3>

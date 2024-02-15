@@ -19,6 +19,10 @@ export default function Header() {
       name: "Portugol Studio",
       path: "/portugol-studio",
     },
+    {
+      name: "Cadastro de Cursos",
+      path: "/cadastro-cursos"
+    }
   ];
 
   React.useEffect(() => {
