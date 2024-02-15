@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 
 
 interface CardProps {
+    sideNav: React.ReactNode;
     conteudo: React.ReactNode;
 }
 
 function SideNavConteudo(props: CardProps) {
     const [showSidenav, setShowSidenav] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
-    const handleCheckboxChange = () => {
-        setIsChecked(!isChecked);
-    };
+
 
     return (
         <>
@@ -52,15 +50,7 @@ function SideNavConteudo(props: CardProps) {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
-                        <label className="flex items-center mt-4">
-                            <input
-                                type="checkbox"
-                                checked={isChecked}
-                                onChange={handleCheckboxChange}
-                                className="form-checkbox h-5 w-5 text-indigo-600"
-                            />
-                            <span className="ml-2 text-gray-700">I agree to the terms and conditions</span>
-                        </label>
+                        {props.sideNav}
                     </nav>
                 )}
                 <div className={showSidenav ? 'ml-72' : ''}>
