@@ -37,7 +37,6 @@ export default function MeusCursos() {
             description={curso.descricao}
           />
         ))}
-        <AdicionarCurso />
       </div>
     </>
   );
