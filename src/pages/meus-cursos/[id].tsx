@@ -12,8 +12,13 @@ export default function Details() {
   const [conteudoDisciplinas, setConteudoDisciplinas] = useState<conteudo_disciplina[]>();
 
   const [isChecked, setIsChecked] = useState(false);
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+
+  const [selectedDisciplina, setSelectedDisciplina] = useState("");
+
+  const handleCheckboxChange = (id_disciplina: string) => {
+    setSelectedDisciplina(prevDisciplina =>
+      prevDisciplina === id_disciplina ? "" : id_disciplina
+    );
   };
 
   const fetchDisciplinaByIdCurso = async (id: string) => {
@@ -94,6 +99,9 @@ export default function Details() {
             </ul>
           </div>
         )}
+      <button onClick={() => handleCheckboxChange("f7e8ee2d-c446-4f2e-ac5c-e93eab5efe05")}>
+        Select Checkbox
+      </button>
       </div>
     );
   }
@@ -111,8 +119,8 @@ export default function Details() {
                       <label className="flex items-center mt-4">
                         <input
                           type="checkbox"
-                          checked={isChecked}
-                          onChange={handleCheckboxChange}
+                          checked={selectedDisciplina === disciplina.id_disciplina}
+                          onChange={() => handleCheckboxChange(disciplina.id_disciplina)}
                           className="form-checkbox h-4 w-4 text-indigo-600"
                         />
                         <span className="ml-2 text-gray-700">{disciplina.nome_disciplina}</span>
@@ -122,23 +130,8 @@ export default function Details() {
               </ul>
             </div>
           )
-
         }
-        conteudo={
-          curso && (
-            <div>
-              <h1 className="tituloCurso p-3">{curso.nome_curso}</h1>
-              <ul>
-                {disciplinas &&
-                  disciplinas.map((disciplina) => (
-                    <li key={disciplina.id_disciplina}>
-                      {disciplina.nome_disciplina}- {disciplina.descricao} - {disciplina.carga_horaria}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          )
-        }
+        conteudo={conteudo()}
       />
     </>
   );
