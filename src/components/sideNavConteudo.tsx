@@ -2,22 +2,20 @@ import React, { useState } from 'react';
 
 
 interface CardProps {
+    sideNav: React.ReactNode;
     conteudo: React.ReactNode;
 }
 
 function SideNavConteudo(props: CardProps) {
     const [showSidenav, setShowSidenav] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
-    const handleCheckboxChange = () => {
-        setIsChecked(!isChecked);
-    };
+
 
     return (
         <>
             <div className="relative">
                 <button
                     onClick={() => setShowSidenav(true)}
-                    className="fixed top-20 left-1 bg-slate-300 text-black rounded-full p-4"
+                    className="fixed top-20 left-1 bg-blue-200 text-black rounded-full p-4"
                     style={{ display: !showSidenav ? 'block' : 'none' }}
                 >
                     <svg
@@ -33,7 +31,7 @@ function SideNavConteudo(props: CardProps) {
                 </button>
                 {showSidenav && (
                     <nav
-                        className="fixed z-10 h-screen bg-slate-300 w-72 text-black p-2"
+                        className="fixed z-10 h-screen bg-blue-200 w-72 text-black p-2"
                         style={{
                             transform: showSidenav ? 'translateX(0)' : '-translateX(72px)',
                             transition: 'transform 0.3s ease-in-out',
@@ -52,15 +50,7 @@ function SideNavConteudo(props: CardProps) {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
-                        <label className="flex items-center mt-4">
-                            <input
-                                type="checkbox"
-                                checked={isChecked}
-                                onChange={handleCheckboxChange}
-                                className="form-checkbox h-5 w-5 text-indigo-600"
-                            />
-                            <span className="ml-2 text-gray-700">I agree to the terms and conditions</span>
-                        </label>
+                        {props.sideNav}
                     </nav>
                 )}
                 <div className={showSidenav ? 'ml-72' : ''}>

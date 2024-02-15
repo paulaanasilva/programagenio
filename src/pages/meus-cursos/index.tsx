@@ -12,7 +12,7 @@ export default function MeusCursos() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/cursos")
+      .get("http://localhost:3000/api/curso")
       .then((response) => {
         setCursos(response.data);
       })
@@ -39,9 +39,6 @@ export default function MeusCursos() {
           />
         ))}
         <AdicionarCurso />
-        <Link href="http://localhost:3000/api/disciplinas?id=f4132b41-febb-4f17-a33b-ebc01318a7b7">
-          <h1>Go to Disciplinas</h1>
-        </Link>
       </div>
     </>
   );
