@@ -13,7 +13,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div>
       {router.pathname !== '/login' && <Header />}
-      <div className="px-10">{children}</div>
+      <div className="px-5">{children}</div>
     </div>
   );
 }
