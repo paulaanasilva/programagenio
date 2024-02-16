@@ -8,22 +8,25 @@ import Link from "next/link";
 
 export default function MeusCursos() {
   const [cursos, setCursos] = useState<curso[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/curso")
       .then((response) => {
         setCursos(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
+        setIsLoading(false);
       });
   }, []);
 
   return (
     <>
       <Head>
-        <title>Programa Genio | Dashboard | Cadastrar Cursos</title>
+        <title>Programa Genio | Meus Cursos</title>
       </Head>
       <p></p>
       <h3 className="my-4">Meus Cursos</h3>
