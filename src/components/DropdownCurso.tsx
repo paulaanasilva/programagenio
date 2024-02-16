@@ -9,10 +9,10 @@ interface DropdownCursoProps {
 const DropdownCurso = ({ idCurso }: DropdownCursoProps) => (
   <>
     <div>
-      <Dropdown text="..." pointing="right">
+      <Dropdown pointing="right">
         <DropdownMenu>
           <Link href={`/meus-cursos/${idCurso}`}>
-            <DropdownItem text="Acessar Curso" />
+            <DropdownItem className="m-1 text-black" text="Acessar Curso" />
           </Link>
         </DropdownMenu>
       </Dropdown>

@@ -6,7 +6,7 @@ export default function CadastroCursos() {
     return (
         <>
         <Head>
-            <title>Programa Genio | Dashboard | Cadastrar Cursos</title>
+            <title>Programa Genio | Cadastrar Cursos</title>
         </Head>
         
         <AdicionarCurso />
