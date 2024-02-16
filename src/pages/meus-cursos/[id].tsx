@@ -25,7 +25,7 @@ export default function Details() {
     try {
       console.log(id);
       const response = await axios.get(
-        `http://localhost:3000/api/disciplina/curso/${id}`
+        `http://localhost:3000/api/curso/disciplina/${id}`
       );
       const curso = response.data;
       setCurso(curso);
@@ -49,7 +49,7 @@ export default function Details() {
     try {
       console.log(id);
       const response = await axios.get(
-        `http://localhost:3000/api/curso/${id}`
+        `http://localhost:3000/api/cursos/${id}`
       );
       const curso = response.data;
       setCurso(curso);

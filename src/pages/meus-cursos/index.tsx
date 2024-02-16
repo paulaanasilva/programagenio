@@ -12,7 +12,7 @@ export default function MeusCursos() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/curso")
+      .get("http://localhost:3000/api/cursos")
       .then((response) => {
         setCursos(response.data);
         setIsLoading(false);
