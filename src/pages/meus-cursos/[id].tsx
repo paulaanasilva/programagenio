@@ -25,7 +25,7 @@ export default function Details() {
     try {
       console.log(id);
       const response = await axios.get(
-        `http://localhost:3000/api/curso/disciplina/${id}`
+        `http://localhost:3000/api/curso/unidade-ensino/${id}`
       );
       const curso = response.data;
       setCurso(curso);
