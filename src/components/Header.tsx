@@ -21,7 +21,7 @@ export default function Header() {
     },
     {
       name: "Cadastro de Cursos",
-      path: "/cadastro-cursos"
+      path: "/cadastro/curso"
     }
   ];
 
