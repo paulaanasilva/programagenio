@@ -12,10 +12,9 @@ export default function MeusCursos() {
   return (
     <>
       <Head>
-        <title>Programa Genio | Portugol</title>
+        <title>Programa Genio | Portugol Studio</title>
       </Head>
       <p></p>
-      <h3 className="my-4">Portugo</h3>
       <div>
         <iframe
           src="https://portugol-webstudio.github.io"
