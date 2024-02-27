@@ -3,8 +3,6 @@ import Head from "next/head";
 import axios from "axios";
 import CardCurso from "@/components/CardCurso";
 import { curso } from "@prisma/client";
-import router from "next/router";
-import Link from "next/link";
 
 export default function MeusCursos() {
   const [cursos, setCursos] = useState<curso[]>([]);
