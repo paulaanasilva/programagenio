@@ -4,8 +4,7 @@ const AdicionarCurso: React.FC = () => {
   const [nomeCurso, setNomeCurso] = useState("");
   const [descricao, setDescricao] = useState("");
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
 
     const novoCurso = {
       nome_curso: nomeCurso,
