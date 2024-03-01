@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import Popup from "./Popup";
 
 const AdicionarCurso: React.FC = () => {
   const [nomeCurso, setNomeCurso] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     const novoCurso = {
       nome_curso: nomeCurso,
@@ -27,6 +30,21 @@ const AdicionarCurso: React.FC = () => {
       }
     } catch (error) {
       console.error("Erro ao adicionar curso:", error);
+    }
+    setShowPopup(true);
+
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    resetForm();
+    window.location.reload();
+  };
+
+  const resetForm = () => {
+    const form = document.getElementById('myForm') as HTMLFormElement;
+    if (form) {
+      form.reset();
     }
   };
 
@@ -65,6 +83,7 @@ const AdicionarCurso: React.FC = () => {
               <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adicionar Curso</button>
             </div>
           </form>
+          {showPopup && <Popup onClose={handleClosePopup} />}
         </div>
       </div>
   );
