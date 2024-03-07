@@ -10,7 +10,7 @@ export default function MeusCursos() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/cursos")
+      .get("http://localhost:3000/api/curso")
       .then((response) => {
         setCursos(response.data);
         setIsLoading(false);
@@ -31,11 +31,11 @@ export default function MeusCursos() {
       <div>
         {cursos.map((curso) => (
           <CardCurso
-            key={curso.id_curso}
-            id={curso.id_curso}
+            key={curso.id}
+            id={curso.id}
             img={"/logoPortugol.png"}
-            title={curso.nome_curso}
-            description={curso.descricao}
+            title={curso.nome}
+            description={curso.descricao || ""}
           />
         ))}
       </div>

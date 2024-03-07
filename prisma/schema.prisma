@@ -9,88 +9,79 @@ datasource db {
 }
 
 model curso {
-  id_curso         String             @id @default(uuid())
-  nome_curso       String
-  descricao        String
-  cursos_alunos    cursos_alunos[]
-  disciplina_curso disciplina_curso[]
+  id             String           @id @default(uuid())
+  nome           String
+  descricao      String?
+  curso_aluno    curso_aluno[]
+  unidade_ensino unidade_ensino[]
+}
+
+model unidade_ensino {
+  id            String   @id @default(uuid())
+  nome          String
+  descricao     String?
+  codigo        Int      @unique
+  carga_horaria Float
+  id_curso      String   @default(uuid())
+  topico        topico[]
+  curso         curso    @relation(fields: [id_curso], references: [id])
+}
+
+model topico {
+  id                     String                   @id @default(uuid())
+  nome                   String
+  qtd_pontos             Int
+  id_unidade_ensino      String                   @default(uuid())
+  aluno_historico_topico aluno_historico_topico[]
+  objeto_aprendizagem    objeto_aprendizagem[]
+  unidades_ensino        unidade_ensino           @relation(fields: [id_unidade_ensino], references: [id])
+}
+
+model objeto_aprendizagem {
+  id                       String                   @id @default(uuid())
+  id_topico                String                   @default(uuid())
+  descricao                String?
+  codigo_unidade_ensino    Int                      @unique
+  tipo_objeto_aprendizagem Tipo_objeto_aprendizagem
+  topicos                  String
+  exercicios               Boolean
+  taxonomia                Int
+  topico                   topico                   @relation(fields: [id_topico], references: [id])
 }
 
 model aluno {
-  id_aluno         String             @id @default(uuid())
-  nome_aluno       String
-  matricula        Int                @unique
-  cpf              String             @unique
-  telefone         String?
-  cursos_alunos    cursos_alunos[]
-  disciplina_aluno disciplina_aluno[]
+  id                     String                   @id @default(uuid())
+  nome                   String
+  matricula              Int                      @unique
+  cpf                    String                   @unique
+  telefone               String?
+  aluno_historico_topico aluno_historico_topico[]
+  curso_aluno            curso_aluno[]
 }
 
-model cursos_alunos {
-  aluno    aluno? @relation(fields: [id_aluno], references: [id_aluno])
+model curso_aluno {
   id_aluno String @default(uuid())
-  curso    curso? @relation(fields: [id_curso], references: [id_curso])
   id_curso String @default(uuid())
+  aluno    aluno  @relation(fields: [id_aluno], references: [id])
+  curso    curso  @relation(fields: [id_curso], references: [id])
 
   @@id([id_aluno, id_curso])
 }
 
-model historico {
-  id_historico         String                 @id @default(uuid())
-  notas                Int?
-  media                Float?
-  disciplina_historico disciplina_historico[]
+model aluno_historico_topico {
+  id_aluno  String @default(uuid())
+  id_topico String @default(uuid())
+  aluno     aluno  @relation(fields: [id_aluno], references: [id])
+  topico    topico @relation(fields: [id_topico], references: [id])
+
+  @@id([id_aluno, id_topico])
 }
 
-model disciplina {
-  id_disciplina         String                  @id @default(uuid())
-  descricao             String
-  carga_horaria         Float
-  nome_disciplina       String
-  cod_disciplina        Int                     @unique
-  disciplina_dependente disciplina_dependente[]
-  disciplina_curso      disciplina_curso[]
-  disciplina_historico  disciplina_historico[]
-  disciplina_aluno      disciplina_aluno[]
-  conteudo_disciplina   conteudo_disciplina[]
-}
-
-model conteudo_disciplina {
-  id_conteudo_disciplina String      @id @default(uuid())
-  id_disciplina          String      @default(uuid())
-  conteudo               String
-  disciplina             disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
-}
-
-model disciplina_dependente {
-  id_disciplina_dependente String      @id @default(uuid())
-  id_disciplina            String      @default(uuid())
-  disciplina               disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
-}
-
-model disciplina_curso {
-  disciplina    disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
-  id_disciplina String      @default(uuid())
-  curso         curso?      @relation(fields: [id_curso], references: [id_curso])
-  id_curso      String      @default(uuid())
-
-  @@id([id_disciplina, id_curso])
-}
-
-model disciplina_historico {
-  disciplina    disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
-  id_disciplina String      @default(uuid())
-  historico     historico?  @relation(fields: [id_historico], references: [id_historico])
-  id_historico  String      @default(uuid())
-
-  @@id([id_disciplina, id_historico])
-}
-
-model disciplina_aluno {
-  disciplina    disciplina? @relation(fields: [id_disciplina], references: [id_disciplina])
-  id_disciplina String      @default(uuid())
-  aluno         aluno?      @relation(fields: [id_aluno], references: [id_aluno])
-  id_aluno      String      @default(uuid())
-
-  @@id([id_disciplina, id_aluno])
+enum Tipo_objeto_aprendizagem {
+  ESTATICO
+  VISUAL
+  MEDIA
+  INTERATIVO
+  AVALIATIVO
+  AVANCADO
 }
