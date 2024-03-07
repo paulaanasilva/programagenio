@@ -10,12 +10,12 @@ const AdicionarCurso: React.FC = () => {
     event.preventDefault();
 
     const novoCurso = {
-      nome_curso: nomeCurso,
+      nome: nomeCurso,
       descricao: descricao,
     };
 
     try {
-      const response = await fetch("/api/cursos", {
+      const response = await fetch("/api/curso", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,12 +53,12 @@ const AdicionarCurso: React.FC = () => {
         <div className="sm:col-span-4">
           <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="nome_curso" className="block text-sm font-medium leading-6 text-gray-900">Nome do Curso:</label>
+              <label htmlFor="nome" className="block text-sm font-medium leading-6 text-gray-900">Nome do Curso:</label>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
                     type="text"
-                    id="nome_curso"
+                    id="nome"
                     value={nomeCurso}
                     onChange={(event) => setNomeCurso(event.target.value)}
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"

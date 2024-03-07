@@ -13,10 +13,10 @@ export default async function handler(
     const cursos = await prisma.curso.findMany({});
     res.status(200).json(cursos);
   } else if (req.method === "POST") {
-    const { nome_curso, descricao } = req.body;
+    const { nome, descricao } = req.body;
     const curso = await prisma.curso.create({
       data: {
-        nome_curso,
+        nome,
         descricao,
       },
     });
