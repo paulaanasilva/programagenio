@@ -1,8 +1,34 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { unidade_ensino, curso, topico, objeto_aprendizagem } from "@prisma/client";
+import {
+  curso,
+  objeto_aprendizagem,
+  topico,
+  unidade_ensino,
+} from "@prisma/client";
 import SideNavConteudo from "@/components/sideNavConteudo";
+
+export interface TopicoWithRelations extends topico {
+  id: string;
+  nome: string;
+  descricao: string;
+  objeto_aprendizagem: objeto_aprendizagem[];
+}
+
+export interface UnidadeEnsinoWithRelations extends unidade_ensino {
+  id: string;
+  nome: string;
+  descricao: string;
+  topico: TopicoWithRelations[];
+}
+
+export interface CursoWithRelations extends curso {
+  id: string;
+  nome: string;
+  descricao: string;
+  unidade_ensino: UnidadeEnsinoWithRelations[];
+}
 
 export default function Details() {
   const router = useRouter();
@@ -10,23 +36,14 @@ export default function Details() {
 
   const [isChecked, setIsChecked] = useState(false);
 
-
-  const [curso, setCurso] = useState<curso>();
-  const [unidadeEnsino, setUnidadeEnsino] = useState<unidade_ensino[]>();
-  const [topico, setTopico] = useState<topico[]>();
-  const [objetoAprendizagem, setobjetoAprendizagem] = useState<objeto_aprendizagem[]>();
-
-
+  const [curso, setCurso] = useState<CursoWithRelations>();
 
   const fetchByIdCurso = async (id: string) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/curso/unidade-ensino/topico/objeto-aprendizagem/${id}`);
-      const curso = response.data;
-      console.log("Mostrando o curso",curso);
-      setCurso(curso);
-      setUnidadeEnsino(curso.unidade_ensino);
-      setTopico(curso.unidade_ensino.topico);
-      setobjetoAprendizagem(curso.unidade_ensino.topico.objeto_aprendizagem);
+      const response = await axios.get<CursoWithRelations>(
+        `http://localhost:3000/api/curso/unidade-ensino/topico/objeto-aprendizagem/${id}`
+      );
+      setCurso(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -38,39 +55,46 @@ export default function Details() {
     }
   }, [id]);
 
-
-
-
-
   function conteudo() {
     return (
       <div>
         {curso && (
-          <div>
-            <h2>{curso.nome}</h2>
-            <p>{curso.descricao}</p>
-          </div>
+          <>
+            <div className="bg-slate-200 p-3">
+              <h2>{curso.nome}</h2>
+              <p>{curso.descricao}</p>
+            </div>
+            <>
+              {curso.unidade_ensino.map((unidade, index) => (
+                <>
+                  <div className="bg-slate-300 p-3" key={index}>
+                    <h3>{unidade.nome}</h3>
+                    <p>{unidade.descricao}</p>
+                  </div>
+                  <>
+                    {unidade.topico &&
+                      unidade.topico.map((top, index) => (
+                        <>
+                          <div className="bg-slate-400 p-3" key={index}>
+                            <h4>{top.nome}</h4>
+                          </div>
+                          {top.objeto_aprendizagem &&
+                            top.objeto_aprendizagem.map((objeto, index) => (
+                              <div className="bg-slate-500 p-3" key={index}>
+                                <p>{objeto.descricao}</p>
+                              </div>
+                            ))}
+                        </>
+                      ))}
+                  </>
+                </>
+              ))}
+            </>
+          </>
         )}
-        {unidadeEnsino && unidadeEnsino.map((unidade, index) => (
-          <div key={index}>
-            <h3>{unidade.nome}</h3>
-            <p>{unidade.descricao}</p>
-          </div>
-        ))}
-        {topico && topico.map((top, index) => (
-          <div key={index}>
-            <h4>{top.nome}</h4>
-          </div>
-        ))}
-        {objetoAprendizagem && objetoAprendizagem.map((objeto, index) => (
-          <div key={index}>
-            <p>{objeto.descricao}</p>
-          </div>
-        ))}
       </div>
     );
   }
-
 
   return (
     <>
