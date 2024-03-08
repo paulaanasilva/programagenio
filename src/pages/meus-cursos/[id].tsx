@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { unidade_ensino, curso } from "@prisma/client";
+import { unidade_ensino, curso, topico, objeto_aprendizagem } from "@prisma/client";
 import SideNavConteudo from "@/components/sideNavConteudo";
 
 export default function Details() {
@@ -13,13 +13,20 @@ export default function Details() {
 
   const [curso, setCurso] = useState<curso>();
   const [unidadeEnsino, setUnidadeEnsino] = useState<unidade_ensino[]>();
+  const [topico, setTopico] = useState<topico[]>();
+  const [objetoAprendizagem, setobjetoAprendizagem] = useState<objeto_aprendizagem[]>();
 
-  const fetchUnidadeEnsinoByIdCurso = async (id: string) => {
+
+
+  const fetchByIdCurso = async (id: string) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/curso/unidade-ensino/${id}`);
+      const response = await axios.get(`http://localhost:3000/api/curso/unidade-ensino/topico/objeto-aprendizagem/${id}`);
       const curso = response.data;
+      console.log("Mostrando o curso",curso);
       setCurso(curso);
       setUnidadeEnsino(curso.unidade_ensino);
+      setTopico(curso.unidade_ensino.topico);
+      setobjetoAprendizagem(curso.unidade_ensino.topico.objeto_aprendizagem);
     } catch (error) {
       console.error(error);
     }
@@ -27,9 +34,10 @@ export default function Details() {
 
   useEffect(() => {
     if (id) {
-      fetchUnidadeEnsinoByIdCurso(id as string);
+      fetchByIdCurso(id as string);
     }
   }, [id]);
+
 
 
 
@@ -39,27 +47,30 @@ export default function Details() {
       <div>
         {curso && (
           <div>
-            <h1 className="tituloCurso p-3">{curso.nome}</h1>
-            <ul>
-              {unidadeEnsino &&
-                unidadeEnsino.map((unidade) => (
-                  <li key={unidade.id}>
-
-                      {unidade.nome} | {unidade.carga_horaria}
-
-                  </li>
-                ))}
-
-            </ul>
-            <h1>Aqui exibe o conteúdo</h1>
-            <ul>
-
-            </ul>
+            <h2>{curso.nome}</h2>
+            <p>{curso.descricao}</p>
           </div>
         )}
+        {unidadeEnsino && unidadeEnsino.map((unidade, index) => (
+          <div key={index}>
+            <h3>{unidade.nome}</h3>
+            <p>{unidade.descricao}</p>
+          </div>
+        ))}
+        {topico && topico.map((top, index) => (
+          <div key={index}>
+            <h4>{top.nome}</h4>
+          </div>
+        ))}
+        {objetoAprendizagem && objetoAprendizagem.map((objeto, index) => (
+          <div key={index}>
+            <p>{objeto.descricao}</p>
+          </div>
+        ))}
       </div>
     );
   }
+
 
   return (
     <>
@@ -68,7 +79,7 @@ export default function Details() {
           curso && (
             <div>
               <ul>
-                
+                <p>Aqui acompanho o curso</p>
               </ul>
             </div>
           )
