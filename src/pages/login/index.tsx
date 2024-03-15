@@ -1,67 +1,51 @@
-import React, { useState } from 'react';
+import React from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const LoginPage: React.FC = () => {
-    const [error, setError] = useState(false);
-    const [user, setUser] = useState('');
-    const [pass, setPass] = useState('');
-    
+  const { data: session } = useSession();
+  const router = useRouter();
 
-    const validateUser = async (user: string, pass: string) => {
-        return user === 'admin' && pass === 'admin';
-    };
+  React.useEffect(() => {
+    // Redirect to home if already logged in
+    if (session) {
+      router.push("/");
+    }
+  }, [session, router]);
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    // Attempt to sign in
+    signIn("keycloak", { callbackUrl: "/" }); // Use the correct ID for your provider
+  };
 
-        const isValid = await validateUser(user, pass);
-
-        if (!isValid) {
-            setError(true);
-        } else {
-            setError(false);
-        }
-    };
-
-    return (
-        <>
-            {<div className="flex items-center justify-center h-screen">
-                <div className="page-login">
-                    <div className="ui centered grid container">
-                        <div className="five wide column">
-                            {error && (
-                                <div className="ui icon warning message">
-                                    <i className="lock icon"></i>
-                                    <div className="content">
-                                        <p>Nome de usuário ou senha incorretos</p>
-                                    </div>
-                                </div>
-                            )}
-                            <div className="ui fluid card items-center">
-                                <img className="logologin m-2" src="logoprincipal.jpeg" />
-                                <div className="content">
-                                    <form className="ui form" method="POST" onSubmit={handleSubmit}>
-                                        <div className="field">
-                                            <label>E-mail ou usuário</label>
-                                            <input type="text" name="user" onChange={e => setUser(e.target.value)} />
-                                        </div>
-                                        <div className="field">
-                                            <label>Senha</label>
-                                            <input type="password" name="pass" onChange={e => setPass(e.target.value)} />
-                                        </div>
-                                        <div>
-                                            <button className="ui right floated purple button" type="submit">
-                                                Entrar
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+  return (
+    <>
+      {!session && (
+        <div className="flex items-center justify-center h-screen">
+          <div className="page-login">
+            <div className="ui centered grid container">
+              <div className="five wide column">
+                <div className="ui fluid card items-center">
+                  <form
+                    className="ui form"
+                    method="POST"
+                    onSubmit={handleSubmit}
+                  >
+                    <div className="field">
+                      <button className="ui button" type="submit">
+                        Entrar com Keycloak
+                      </button>
                     </div>
+                  </form>
                 </div>
-            </div>}
-        </>
-    );
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default LoginPage;

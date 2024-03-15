@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
 import Router, { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 export default function Header() {
   const router = useRouter();
   const [activeItem, setActiveItem] = React.useState("Dashboard");
-
+  const { data: session } = useSession();
+  console.log(session);
   const headerOptions = [
     {
       name: "Dashboard",
@@ -21,12 +23,14 @@ export default function Header() {
     },
     {
       name: "Cadastro de Cursos",
-      path: "/cadastro/curso"
-    }
+      path: "/cadastro/curso",
+    },
   ];
 
   React.useEffect(() => {
-    const currentOption = headerOptions.find((option) => router.pathname === option.path);
+    const currentOption = headerOptions.find(
+      (option) => router.pathname === option.path
+    );
     if (currentOption) {
       setActiveItem(currentOption.name);
     }
@@ -40,7 +44,7 @@ export default function Header() {
     <div>
       <Menu pointing secondary>
         <Menu.Item>
-            <img alt="logo" src="/logoprincipal.jpeg" />
+          <img alt="logo" src="/logoprincipal.jpeg" />
         </Menu.Item>
 
         {headerOptions.map((option) => (
@@ -54,8 +58,24 @@ export default function Header() {
             }}
           />
         ))}
-        
+
         <Menu.Menu position="right">
+          {session && session.user? (
+            <Menu.Item
+              name={"Olá, " + session.user.name}
+              active={activeItem === "Sair"}
+              onClick={handleExit}
+            />
+          ) : (
+            <Menu.Item
+              name="Entrar"
+              active={activeItem === "Entrar"}
+              onClick={() => {
+                router.push("/login");
+                setActiveItem("Entrar");
+              }}
+            />
+          )}
           <Menu.Item
             name="Sair"
             active={activeItem === "Sair"}
