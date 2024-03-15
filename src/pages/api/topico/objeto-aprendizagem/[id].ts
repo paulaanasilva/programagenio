@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import pkg from "@prisma/client";
-import { unidade_ensino } from "@prisma/client";
+import { objeto_aprendizagem } from "@prisma/client";
 const { PrismaClient } = pkg;
 
 const prisma = new PrismaClient();
@@ -13,13 +13,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(400).json({ message: "Invalid id" });
     }
 
-    const cursoWithUnidadeEnsino = await prisma.curso.findUnique({
+    const topicoWithObjetoAprendizagem = await prisma.topico.findUnique({
       where: { id: String(id) },
-      include: { unidade_ensino: true },
+      include: { objeto_aprendizagem: true },
     });
 
-    if (cursoWithUnidadeEnsino) {
-      res.status(200).json(cursoWithUnidadeEnsino);
+    console.log("api", topicoWithObjetoAprendizagem);
+    if (topicoWithObjetoAprendizagem) {
+      res.status(200).json(topicoWithObjetoAprendizagem);
     } else {
       res.status(404).json({ message: "Curso not found" });
     }
