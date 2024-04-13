@@ -2,9 +2,29 @@ import "semantic-ui-css/semantic.min.css";
 import { useRouter } from 'next/router';
 import Header from "./Header";
 import Footer from "./Footer";
+import HeaderGerenciar from "./HeaderGerenciar";
 
 interface LayoutProps {
   children: React.ReactNode;
+}
+
+function routerForaHeader() {
+  const router = useRouter();
+  if (router.pathname !== '/login' && router.pathname !== '/gerenciar/cadastro/curso') {
+    return true;
+  }
+  return false;
+}
+
+function routerHeader() { 
+  const router = useRouter();
+  if(router.pathname === '/login') {
+    return true;
+  }
+  if (router.pathname === '/gerenciar/cadastro/curso') {
+    return <HeaderGerenciar />
+  }
+  return <Header />;
 }
 
 export default function Layout({ children }: LayoutProps) {
@@ -12,7 +32,7 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="layout">
-      {router.pathname !== '/login' && <Header />}
+      {routerHeader()}
       <div className="px-5" style={{ flex: 1 }}>{children}</div>
       <footer>
         {router.pathname !== '/login' && router.pathname !== '/meus-cursos/[id]' && <Footer />}

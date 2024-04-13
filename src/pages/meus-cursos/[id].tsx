@@ -1,13 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from 'next/link';
 import {
   curso,
   objeto_aprendizagem,
   topico,
   unidade_ensino,
 } from "@prisma/client";
+import DropdownManage from "@/components/DropdownGerenciar";
+
+
 import SideNavConteudo from "@/components/sideNavConteudo";
+import { Accordion } from "semantic-ui-react";
 
 export interface TopicoWithRelations extends topico {
   id: string;
@@ -55,61 +60,79 @@ export default function Details() {
     }
   }, [id]);
 
-  function conteudo() {
+  function conteudoObjetoAprendizagem() {
     return (
-      <div>
+      <>
         {curso && (
           <>
-            <div className="bg-slate-200 p-3">
-              <h2>{curso.nome}</h2>
-              <p>{curso.descricao}</p>
+            <div>
+              <p className="p-2">{curso.descricao}</p>
             </div>
-            <>
-              {curso.unidade_ensino.map((unidade, index) => (
-                <>
-                  <div className="bg-slate-300 p-3" key={index}>
-                    <h3>{unidade.nome}</h3>
-                    <p>{unidade.descricao}</p>
-                  </div>
-                  <>
-                    {unidade.topico &&
-                      unidade.topico.map((top, index) => (
-                        <>
-                          <div className="bg-slate-400 p-3" key={index}>
-                            <h4>{top.nome}</h4>
-                          </div>
-                          {top.objeto_aprendizagem &&
-                            top.objeto_aprendizagem.map((objeto, index) => (
-                              <div className="bg-slate-500 p-3" key={index}>
-                                <p>{objeto.descricao}</p>
-                              </div>
-                            ))}
-                        </>
-                      ))}
-                  </>
-                </>
-              ))}
-            </>
           </>
         )}
-      </div>
+      </>
+    );
+  }
+
+  function tituloCurso() {
+    return (
+      <>
+        {curso && (
+          <>
+            <div>
+              <h3 className="text-purple-500 p-2">{curso.nome}</h3>
+            </div>
+          </>
+        )}
+      </>
+    );
+  }
+
+  function listaEstruturaCurso() {
+    const panels = (curso?.unidade_ensino ?? []).map((unidade) => ({
+      key: unidade.id,
+      title: unidade.nome,
+      content: {
+        content: (
+          <Accordion
+            panels={unidade.topico.map((top) => ({
+              key: top.id,
+              title: top.nome,
+              content: (
+                [<div>
+                  {top.objeto_aprendizagem.map((objeto) => (
+                    <Link key={objeto.id} className="text-black" href={`/login/${objeto.id}`}>
+                      <p className="p-2">{objeto.descricao}</p>
+                    </Link>
+                  ))}
+                </div>]
+              ),
+            }))}
+          />
+        ),
+      },
+    }));
+
+    return <Accordion panels={panels} />;
+  }
+
+
+  function dadoSidenav() {
+    return (
+      <>
+        {tituloCurso()}
+        {listaEstruturaCurso()}
+      </>
     );
   }
 
   return (
     <>
       <SideNavConteudo
-        sideNav={
-          curso && (
-            <div>
-              <ul>
-                <p>Aqui acompanho o curso</p>
-              </ul>
-            </div>
-          )
-        }
-        conteudo={conteudo()}
+        sideNav={dadoSidenav()}
+        exibeConteudoObjetoAprendizagem={conteudoObjetoAprendizagem()}
       />
     </>
   );
 }
+
