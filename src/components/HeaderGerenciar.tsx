@@ -11,16 +11,8 @@ export default function Header() {
 
   const headerOptions = [
     {
-      name: "Dashboard",
-      path: "/",
-    },
-    {
-      name: "Meus Cursos",
-      path: "/meus-cursos",
-    },
-    {
-      name: "Portugol Studio",
-      path: "/portugol-studio",
+      name: "Gerenciar",
+      path: "/gerenciar/cadastro/curso",
     }
   ];
 
@@ -44,6 +36,7 @@ export default function Header() {
           </Menu.Item>
         </Link>
 
+
         {headerOptions.map((option) => (
           <Menu.Item
             key={option.name}
@@ -55,7 +48,6 @@ export default function Header() {
             }}
           />
         ))}
-
 
         <Menu.Menu position="right" className="pt-12">
           <DropdownManage />

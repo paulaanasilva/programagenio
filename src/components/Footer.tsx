@@ -14,7 +14,7 @@ function Footer() {
                     <Image className="" src="/logoprincipal.jpeg" alt="Footer Image" width={50} height={30} />
                 </div>
                 <div className="text-center text-gray-500 text-sm m-4">
-                    ©{currentYear} Programa Genio | Todos os direitos reservados
+                    ©2024 Programa Genio | Todos os direitos reservados
                 </div>
             </div>
         </>
