@@ -33,7 +33,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="layout">
       {routerHeader()}
-      <div className="px-5" style={{ flex: 1 }}>{children}</div>
+      <div className="px-0" style={{ flex: 1 }}>{children}</div>
       <footer>
         {router.pathname !== '/login' && router.pathname !== '/meus-cursos/[id]' && <Footer />}
       </footer>
