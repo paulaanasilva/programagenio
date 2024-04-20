@@ -91,3 +91,8 @@ div.border{
   flex-direction: column;
   min-height: 100vh;
 }
+
+.override-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

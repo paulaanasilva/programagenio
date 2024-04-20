@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Link from 'next/link';
 import Head from 'next/head'
 import {
   curso,
@@ -9,12 +8,10 @@ import {
   topico,
   unidade_ensino,
 } from "@prisma/client";
-import DropdownManage from "@/components/DropdownGerenciar";
 
 
 import SideNavConteudo from "@/components/sideNavConteudo";
 import { Accordion } from "semantic-ui-react";
-import ObjetoAprendizagem from "../objeto-aprendizagem";
 
 export interface TopicoWithRelations extends topico {
   id: string;
@@ -98,12 +95,16 @@ export default function Details() {
   }
 
   function objetoAprendizagem(objetoAprendizagemId: string) {
-    <>
-      <Head>
-        <title>Programa Genio | Dashboard</title>
-      </Head>
-      <h1>Aqui é INDEX</h1>
-    </>
+    console.log(objetoAprendizagemId);
+    let objetoId = objetoAprendizagemId;
+
+    return (
+      <>
+        <div className="w-5/6 p-4">
+          {objetoId}  
+        </div>
+      </>
+    );
   }
 
   function listaEstruturaCurso() {
@@ -120,20 +121,21 @@ export default function Details() {
                 [<div key={top.id}>
                   {top.objeto_aprendizagem.slice((currentPage[index] - 1) * itemsPerPage, currentPage[index] * itemsPerPage).map((objeto) => (
                     <div key={objeto.id}>
-                      <div>
-                        {Array.from({ length: Math.ceil(top.objeto_aprendizagem.length / itemsPerPage) }, (_, i) => i + 1).map((pageNum) => (
-                          <button key={pageNum} onClick={() => setCurrentPage(prev => {
-                            const newCurrentPage = [...prev];
-                            newCurrentPage[index] = pageNum;
-                            objetoAprendizagem(objeto.id);
-                            return newCurrentPage;
-                          })}>
-                            {pageNum}
-                          </button>
-                        ))}
-                      </div>
+                      {objetoAprendizagem(objeto.id)}
                     </div>
                   ))}
+
+                  <div>
+                    {Array.from({ length: Math.ceil(top.objeto_aprendizagem.length / itemsPerPage) }, (_, i) => i + 1).map((pageNum) => (
+                      <button key={pageNum} onClick={() => setCurrentPage(prev => {
+                        const newCurrentPage = [...prev];
+                        newCurrentPage[index] = pageNum;
+                        return newCurrentPage;
+                      })}>
+                        {pageNum}
+                      </button>
+                    ))}
+                  </div>
                 </div>]
               ),
             }))}
@@ -155,12 +157,18 @@ export default function Details() {
     );
   }
 
+
+
   return (
     <>
-      <SideNavConteudo
-        sideNav={dadoSidenav()}
-        exibeConteudoObjetoAprendizagem={listaEstruturaCurso()}
-      />
+      <div className="flex">
+        <div className="w-1/6 h-screen bg-slate-50 sticky top-0 p-4">
+          {dadoSidenav()}
+        </div>
+        <div className="w-5/6 p-4">
+          <p>teste</p>
+        </div>
+      </div>
     </>
   );
 }

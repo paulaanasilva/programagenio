@@ -8,7 +8,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-function routerHeader() { 
+function routerComHeader() { 
   const router = useRouter();
   if(router.pathname === '/login') {
     return true;
@@ -19,15 +19,32 @@ function routerHeader() {
   return <Header />;
 }
 
+function routerSemFooter() {
+  const router = useRouter();
+  if (router.pathname !== '/login' && router.pathname !== '/meus-cursos/[id]' && !router.pathname.startsWith('/gerenciar/')) {
+    return true;
+  }
+  return false;
+}
+
+function overridePadding() {
+  const router = useRouter();
+  if(router.pathname == '/meus-cursos/[id]' || router.pathname.startsWith('/gerenciar/')){
+    return ".override-padding";
+  }else{
+    return "px-5";
+  }
+}
+
 export default function Layout({ children }: LayoutProps) {
   const router = useRouter();
 
   return (
     <div className="layout">
-      {routerHeader()}
-      <div className="px-0" style={{ flex: 1 }}>{children}</div>
+      {routerComHeader()}
+      <div className={overridePadding()} style={{ flex: 1 }}>{children}</div>
       <footer>
-        {router.pathname !== '/login' && router.pathname !== '/meus-cursos/[id]' && <Footer />}
+        {routerSemFooter() && <Footer />}
       </footer>
     </div>
   );
