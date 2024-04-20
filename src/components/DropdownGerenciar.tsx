@@ -9,7 +9,7 @@ const DropdownManage = () => (
             <Dropdown  className='icon' icon='user'>
                 <DropdownMenu>
                     <DropdownItem>
-                        <Link className="text-black" href="/gerenciar/cadastro/curso">Gerenciar</Link>
+                        <Link className="text-black" href="/gerenciar/cadastro">Gerenciar</Link>
                     </DropdownItem>
                     <DropdownDivider />
                     <DropdownItem>Sair</DropdownItem>

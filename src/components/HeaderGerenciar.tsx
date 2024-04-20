@@ -12,7 +12,7 @@ export default function Header() {
   const headerOptions = [
     {
       name: "Gerenciar",
-      path: "/gerenciar/cadastro/curso",
+      path: "/gerenciar/cadastro",
     }
   ];
 
@@ -24,7 +24,7 @@ export default function Header() {
   }, [router.pathname, headerOptions]);
 
   const handleExit = () => {
-    router.push("/");
+    router.push("/gerenciar/cadastro");
   };
 
   return (

@@ -8,20 +8,12 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-function routerForaHeader() {
-  const router = useRouter();
-  if (router.pathname !== '/login' && router.pathname !== '/gerenciar/cadastro/curso') {
-    return true;
-  }
-  return false;
-}
-
 function routerHeader() { 
   const router = useRouter();
   if(router.pathname === '/login') {
     return true;
   }
-  if (router.pathname === '/gerenciar/cadastro/curso') {
+  if (router.pathname.startsWith('/gerenciar/')) {
     return <HeaderGerenciar />
   }
   return <Header />;
@@ -33,7 +25,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="layout">
       {routerHeader()}
-      <div className="px-5" style={{ flex: 1 }}>{children}</div>
+      <div className="px-0" style={{ flex: 1 }}>{children}</div>
       <footer>
         {router.pathname !== '/login' && router.pathname !== '/meus-cursos/[id]' && <Footer />}
       </footer>
