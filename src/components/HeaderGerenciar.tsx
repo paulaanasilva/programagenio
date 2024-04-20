@@ -12,7 +12,7 @@ export default function Header() {
   const headerOptions = [
     {
       name: "Gerenciar",
-      path: "/gerenciar/cadastro/curso",
+      path: "/gerenciar/cadastro",
     }
   ];
 

@@ -49,8 +49,8 @@ const AdicionarCurso: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="mt-5 w-4/5 max-w-4xl">
+    <div>
+      <div>
         <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
                 <label htmlFor="nome" className="block text-gray-700 text-lg font-bold mb-2">Nome do Curso:</label>

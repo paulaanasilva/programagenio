@@ -8,20 +8,12 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-function routerForaHeader() {
-  const router = useRouter();
-  if (router.pathname !== '/login' && router.pathname !== '/gerenciar/cadastro/curso') {
-    return true;
-  }
-  return false;
-}
-
 function routerHeader() { 
   const router = useRouter();
   if(router.pathname === '/login') {
     return true;
   }
-  if (router.pathname === '/gerenciar/cadastro/curso') {
+  if (router.pathname.startsWith('/gerenciar/cadastro/')) {
     return <HeaderGerenciar />
   }
   return <Header />;
