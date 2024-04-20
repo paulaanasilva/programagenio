@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from 'next/link';
+import Head from 'next/head'
 import {
   curso,
   objeto_aprendizagem,
@@ -13,6 +14,7 @@ import DropdownManage from "@/components/DropdownGerenciar";
 
 import SideNavConteudo from "@/components/sideNavConteudo";
 import { Accordion } from "semantic-ui-react";
+import ObjetoAprendizagem from "../objeto-aprendizagem";
 
 export interface TopicoWithRelations extends topico {
   id: string;
@@ -42,6 +44,18 @@ export default function Details() {
   const [isChecked, setIsChecked] = useState(false);
 
   const [curso, setCurso] = useState<CursoWithRelations>();
+  const [objetoAprendizagemArray, setObjetoAprendizagemArray] = useState<objeto_aprendizagem[]>([]);
+
+
+  /*
+  Paginação
+  */
+  const [currentPage, setCurrentPage] = useState<number[]>([]);
+  const [itemsPerPage,] = useState(1);
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(objetoAprendizagemArray.length / itemsPerPage);
+
 
   const fetchByIdCurso = async (id: string) => {
     try {
@@ -49,6 +63,11 @@ export default function Details() {
         `http://localhost:3000/api/curso/unidade-ensino/topico/objeto-aprendizagem/${id}`
       );
       setCurso(response.data);
+
+      const array = response.data.unidade_ensino.flatMap(unidade => unidade.topico.flatMap(top => top.objeto_aprendizagem));
+      setObjetoAprendizagemArray(array);
+
+
     } catch (error) {
       console.error(error);
     }
@@ -61,17 +80,7 @@ export default function Details() {
   }, [id]);
 
   function conteudoObjetoAprendizagem() {
-    return (
-      <>
-        {curso && (
-          <>
-            <div>
-              <p className="p-2">{curso.descricao}</p>
-            </div>
-          </>
-        )}
-      </>
-    );
+
   }
 
   function tituloCurso() {
@@ -88,6 +97,15 @@ export default function Details() {
     );
   }
 
+  function objetoAprendizagem(objetoAprendizagemId: string) {
+    <>
+      <Head>
+        <title>Programa Genio | Dashboard</title>
+      </Head>
+      <h1>Aqui é INDEX</h1>
+    </>
+  }
+
   function listaEstruturaCurso() {
     const panels = (curso?.unidade_ensino ?? []).map((unidade) => ({
       key: unidade.id,
@@ -95,15 +113,26 @@ export default function Details() {
       content: {
         content: (
           <Accordion
-            panels={unidade.topico.map((top) => ({
+            panels={unidade.topico.map((top, index) => ({
               key: top.id,
               title: top.nome,
               content: (
-                [<div>
-                  {top.objeto_aprendizagem.map((objeto) => (
-                    <Link key={objeto.id} className="text-black" href={`/login/${objeto.id}`}>
-                      <p className="p-2">{objeto.descricao}</p>
-                    </Link>
+                [<div key={top.id}>
+                  {top.objeto_aprendizagem.slice((currentPage[index] - 1) * itemsPerPage, currentPage[index] * itemsPerPage).map((objeto) => (
+                    <div key={objeto.id}>
+                      <div>
+                        {Array.from({ length: Math.ceil(top.objeto_aprendizagem.length / itemsPerPage) }, (_, i) => i + 1).map((pageNum) => (
+                          <button key={pageNum} onClick={() => setCurrentPage(prev => {
+                            const newCurrentPage = [...prev];
+                            newCurrentPage[index] = pageNum;
+                            objetoAprendizagem(objeto.id);
+                            return newCurrentPage;
+                          })}>
+                            {pageNum}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>]
               ),
@@ -130,7 +159,7 @@ export default function Details() {
     <>
       <SideNavConteudo
         sideNav={dadoSidenav()}
-        exibeConteudoObjetoAprendizagem={conteudoObjetoAprendizagem()}
+        exibeConteudoObjetoAprendizagem={listaEstruturaCurso()}
       />
     </>
   );
