@@ -24,7 +24,7 @@ export default function Header() {
   }, [router.pathname, headerOptions]);
 
   const handleExit = () => {
-    router.push("/");
+    router.push("/gerenciar/cadastro");
   };
 
   return (

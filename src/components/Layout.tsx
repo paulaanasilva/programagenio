@@ -13,7 +13,7 @@ function routerHeader() {
   if(router.pathname === '/login') {
     return true;
   }
-  if (router.pathname.startsWith('/gerenciar/cadastro/')) {
+  if (router.pathname.startsWith('/gerenciar/')) {
     return <HeaderGerenciar />
   }
   return <Header />;
