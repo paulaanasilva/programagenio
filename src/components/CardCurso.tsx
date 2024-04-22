@@ -22,6 +22,7 @@
 import React from "react";
 import Image from "next/image";
 import DropdownCurso from "./DropdownCurso";
+import router from "next/router";
 
 interface CardProps {
   id: string;
@@ -31,11 +32,16 @@ interface CardProps {
 }
 
 function CardCurso(props: CardProps) {
+  
   return (
     <>
-      <div className="border-collapse border border-slate-400 rounded-lg my-3 p-3 box">
+      <div
+        className="border-collapse border border-slate-400 rounded-lg my-3 p-3 box"
+        onClick={() => router.push(`/meus-cursos/${props.id}`)}
+      >
         <div>
-          <Image className="imgCurso rounded-lg m-1"
+          <Image
+            className="imgCurso rounded-lg m-1"
             src={props.img}
             width={300}
             height={100}
