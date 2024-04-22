@@ -71,7 +71,7 @@ export default function Details() {
   return (
     <>
       <div className="flex">
-        <div className="w-1/6 h-screen bg-slate-50 sticky top-0 p-4">
+        <div className="w-[250px] h-screen bg-slate-50 sticky top-0 p-4">
           {dadoSidenav()}
         </div>
         <div className="w-5/6 p-4">
