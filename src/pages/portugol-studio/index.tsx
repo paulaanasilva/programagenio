@@ -17,7 +17,7 @@ export default function MeusCursos() {
       <p></p>
       <div>
         <iframe
-          src="https://portugol-webstudio.github.io"
+          src="http://localhost:4200/"
           title="Portugol Webstudio"
           width="100%"
           height="800px"
